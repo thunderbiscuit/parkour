@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.bitcoinopentools.parkour.ui.theme.ParkourTheme
+import org.experimental.ark.Calendar
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -30,7 +31,7 @@ class MainActivity : ComponentActivity() {
                     },
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    // Nothing to display yet
+                    val calendar: Calendar = Calendar(21, "Nakamoto")
                 }
             }
         }
