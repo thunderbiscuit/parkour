@@ -19,3 +19,6 @@ local.properties
 target/
 libark.so
 ark.kt
+
+# Documentation
+NOTES.md
