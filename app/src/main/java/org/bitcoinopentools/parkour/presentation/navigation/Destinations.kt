@@ -6,6 +6,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class ScreenDestinations: NavKey {
     @Serializable
+    data object Onboarding : ScreenDestinations()
+
+    @Serializable
     data object Home : ScreenDestinations()
 
     @Serializable
