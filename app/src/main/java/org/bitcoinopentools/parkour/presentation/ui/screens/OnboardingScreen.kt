@@ -1,19 +1,11 @@
 package org.bitcoinopentools.parkour.presentation.ui.screens
 
-// OnboardingScreen.kt
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.ThumbUp
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -24,6 +16,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.composables.icons.lucide.ChevronLeft
+import com.composables.icons.lucide.ChevronRight
+import com.composables.icons.lucide.Heart
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Star
+import com.composables.icons.lucide.ThumbsUp
 import kotlinx.coroutines.launch
 import org.bitcoinopentools.parkour.domain.OnboardingPage
 
@@ -36,17 +34,17 @@ fun OnboardingScreen(
         OnboardingPage(
             title = "Welcome!",
             description = "Discover amazing features that will make your life easier and more productive.",
-            icon = Icons.Default.Star
+            icon = Lucide.Star
         ),
         OnboardingPage(
             title = "Powerful Features",
             description = "Access a wide range of tools designed to help you achieve your goals effortlessly.",
-            icon = Icons.Default.ThumbUp
+            icon = Lucide.ThumbsUp
         ),
         OnboardingPage(
             title = "Get Started",
             description = "You're all set! Let's begin your journey with our amazing app.",
-            icon = Icons.Default.Favorite
+            icon = Lucide.Heart
         )
     )
     val lastPage = pages.size - 1
@@ -91,7 +89,7 @@ fun OnboardingScreen(
                     }
                 ) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
+                        imageVector = Lucide.ChevronLeft,
                         contentDescription = "Previous page",
                         tint = MaterialTheme.colorScheme.primary
                     )
@@ -136,13 +134,13 @@ fun OnboardingScreen(
             ) {
                 if (pagerState.currentPage == lastPage) {
                     Icon(
-                        imageVector = Icons.Default.Check,
+                        imageVector = Lucide.ThumbsUp,
                         contentDescription = "Get started",
                         tint = MaterialTheme.colorScheme.primary
                     )
                 } else {
                     Icon(
-                        imageVector = Icons.Default.ArrowForward,
+                        imageVector = Lucide.ChevronRight,
                         contentDescription = "Next page",
                         tint = MaterialTheme.colorScheme.primary
                     )

@@ -12,23 +12,21 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.WideNavigationRailItem
 import androidx.compose.material3.rememberWideNavigationRailState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Alignment
+import com.composables.icons.lucide.ArrowRightLeft
+import com.composables.icons.lucide.Circle
+import com.composables.icons.lucide.Info
+import com.composables.icons.lucide.Lucide
+import com.composables.icons.lucide.Menu
+import com.composables.icons.lucide.Settings
 import org.bitcoinopentools.parkour.presentation.navigation.ScreenDestinations
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
@@ -36,10 +34,8 @@ import org.bitcoinopentools.parkour.presentation.navigation.ScreenDestinations
 fun HomeScreen(
     onNavigation: (ScreenDestinations) -> Unit
 ) {
-    var selectedItem by remember { mutableIntStateOf(0) }
     val items = listOf("History", "About", "Settings", "Vtxos")
-    val selectedIcons = listOf(Icons.Filled.Star, Icons.Filled.Star, Icons.Filled.Star, Icons.Filled.Star)
-    val unselectedIcons = listOf(Icons.Outlined.Star, Icons.Outlined.Star, Icons.Outlined.Star, Icons.Outlined.Star)
+    val icons = listOf(Lucide.ArrowRightLeft, Lucide.Info, Lucide.Settings, Lucide.Circle)
     val state = rememberWideNavigationRailState()
     val scope = rememberCoroutineScope()
 
@@ -49,7 +45,7 @@ fun HomeScreen(
                 title = { Text("Parkour") },
                 navigationIcon = {
                     IconButton(onClick = { scope.launch { state.expand() } }) {
-                        Icon(Icons.Filled.Menu, contentDescription = "Open Navigation Rail")
+                        Icon(Lucide.Menu, contentDescription = "Open Navigation Rail")
                     }
                 },
             )
@@ -65,14 +61,13 @@ fun HomeScreen(
                             railExpanded = true,
                             icon = {
                                 Icon(
-                                    if (selectedItem == index) selectedIcons[index] else unselectedIcons[index],
+                                    icons[index],
                                     contentDescription = null
                                 )
                             },
                             label = { Text(item) },
                             selected = false,
                             onClick = {
-                                selectedItem = index
                                 scope.launch { state.collapse() }
                                 when (item) {
                                     "History"  -> onNavigation(ScreenDestinations.History)
