@@ -1,4 +1,4 @@
-package org.bitcoinopentools.parkour.ui.theme
+package org.bitcoinopentools.parkour.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
