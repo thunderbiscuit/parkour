@@ -21,33 +21,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Alignment
+import org.bitcoinopentools.parkour.presentation.navigation.ScreenDestinations
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onNavigation: (ScreenDestinations) -> Unit
+) {
     var selectedItem by remember { mutableIntStateOf(0) }
-    val items = listOf("Home", "Search", "Settings")
-    val selectedIcons = listOf(Icons.Filled.Home, Icons.Filled.Favorite, Icons.Filled.Star)
-    val unselectedIcons = listOf(Icons.Outlined.Home, Icons.Outlined.FavoriteBorder, Icons.Outlined.Star)
+    val items = listOf("History", "About", "Settings", "Vtxos")
+    val selectedIcons = listOf(Icons.Filled.Star, Icons.Filled.Star, Icons.Filled.Star, Icons.Filled.Star)
+    val unselectedIcons = listOf(Icons.Outlined.Star, Icons.Outlined.Star, Icons.Outlined.Star, Icons.Outlined.Star)
     val state = rememberWideNavigationRailState()
     val scope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Home Screen") },
+                title = { Text("Parkour") },
                 navigationIcon = {
                     IconButton(onClick = { scope.launch { state.expand() } }) {
                         Icon(Icons.Filled.Menu, contentDescription = "Open Navigation Rail")
@@ -63,7 +62,7 @@ fun HomeScreen() {
                 ) {
                     items.forEachIndexed { index, item ->
                         WideNavigationRailItem(
-                            railExpanded = true,  // Always expanded when visible
+                            railExpanded = true,
                             icon = {
                                 Icon(
                                     if (selectedItem == index) selectedIcons[index] else unselectedIcons[index],
@@ -71,10 +70,16 @@ fun HomeScreen() {
                                 )
                             },
                             label = { Text(item) },
-                            selected = selectedItem == index,
+                            selected = false,
                             onClick = {
                                 selectedItem = index
-                                scope.launch { state.collapse() }  // Auto-collapse on selection
+                                scope.launch { state.collapse() }
+                                when (item) {
+                                    "History"  -> onNavigation(ScreenDestinations.History)
+                                    "About"    -> onNavigation(ScreenDestinations.About)
+                                    "Settings" -> onNavigation(ScreenDestinations.Settings)
+                                    "Vtxos"    -> onNavigation(ScreenDestinations.Vtxos)
+                                }
                             }
                         )
                     }

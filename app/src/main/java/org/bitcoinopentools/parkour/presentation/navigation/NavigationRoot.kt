@@ -8,6 +8,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import org.bitcoinopentools.parkour.presentation.ui.screens.HomeScreen
 import org.bitcoinopentools.parkour.presentation.ui.screens.OnboardingScreen
+import org.bitcoinopentools.parkour.presentation.ui.screens.PlaceHolderScreen
 import org.bitcoinopentools.parkour.presentation.ui.screens.SendScreen
 
 @Composable
@@ -28,11 +29,39 @@ fun NavigationRoot() {
                     }
                 )
             }
+
             entry<ScreenDestinations.Home> {
-                HomeScreen()
+                HomeScreen(
+                    onNavigation = { destination ->
+                        when (destination) {
+                            ScreenDestinations.History  -> backStack.add(ScreenDestinations.History)
+                            ScreenDestinations.About    -> backStack.add(ScreenDestinations.About)
+                            ScreenDestinations.Settings -> backStack.add(ScreenDestinations.Settings)
+                            ScreenDestinations.Vtxos    -> backStack.add(ScreenDestinations.Vtxos)
+                            else -> Unit
+                        }
+                    }
+                )
             }
+
             entry<ScreenDestinations.Receive> {
                 SendScreen()
+            }
+
+            entry<ScreenDestinations.History> {
+                PlaceHolderScreen("History")
+            }
+
+            entry<ScreenDestinations.About> {
+                PlaceHolderScreen("About")
+            }
+
+            entry<ScreenDestinations.Settings> {
+                PlaceHolderScreen("Settings")
+            }
+
+            entry<ScreenDestinations.Vtxos> {
+                PlaceHolderScreen("Vtxos")
             }
         }
     )

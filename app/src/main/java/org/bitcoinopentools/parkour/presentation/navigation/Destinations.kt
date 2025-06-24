@@ -16,4 +16,22 @@ sealed class ScreenDestinations: NavKey {
 
     @Serializable
     data object Receive : ScreenDestinations()
+
+    @Serializable
+    data object History : ScreenDestinations()
+
+    @Serializable
+    data object TxDetails : ScreenDestinations()
+
+    @Serializable
+    data object About : ScreenDestinations()
+
+    @Serializable
+    data object Settings : ScreenDestinations()
+
+    @Serializable
+    data object Vtxos : ScreenDestinations()
+
+    @Serializable
+    data object VtxoDetails : ScreenDestinations()
 }
