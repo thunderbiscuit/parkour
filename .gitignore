@@ -17,8 +17,12 @@ local.properties
 
 # Rust
 target/
-libark.so
+libark_ffi.so
 ark.kt
+parkour_db.sqlite3
 
 # Documentation
 NOTES.md
+
+# Tooling
+.claude/

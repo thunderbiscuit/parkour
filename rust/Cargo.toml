@@ -1,11 +1,11 @@
 [package]
-name = "lib_ark"
+name = "ark_ffi"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
 crate-type = ["staticlib", "cdylib", "lib"]
-name = "ark"
+name = "ark_ffi"
 
 [[bin]]
 name = "uniffi-bindgen"
@@ -15,7 +15,27 @@ path = "uniffi-bindgen.rs"
 default = ["uniffi/cli"]
 
 [dependencies]
+# Ark
+ark-lib = { path = "../../bark/ark-lib" }
+bark-bitcoin-ext = { path = "../../bark/bitcoin-ext" }
+bark-client = { path = "../../bark/bark" }
+aspd-rpc = { path = "../../bark/aspd-rpc" }
+
+# Bitcoin
+bdk_wallet = "2.0.0"
+bitcoin = "0.32.6"
+bip39 = { version = "2.0.0", features = [ "rand", "serde" ] }
+
 uniffi = { version = "=0.29.3" }
+log = { version = "0.4.27", features = [ "kv", "kv_serde" ] }
+android_logger = "0.14"
+anyhow = "1.0.98"
+rusqlite =  "0.31.0"
+futures = "0.3"
+tokio = { version = "1.0", features = ["rt", "rt-multi-thread", "net", "macros"] }
+tonic = { version = "0.12", features = ["tls-roots", "tls-webpki-roots"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+hex = "0.4"
 
 [build-dependencies]
 uniffi = { version = "=0.29.3", features = ["build"] }

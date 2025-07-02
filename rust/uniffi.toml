@@ -1,3 +1,3 @@
 [bindings.kotlin]
 package_name = "org.experimental.ark"
-cdylib_name = "ark"
+cdylib_name = "ark_ffi"

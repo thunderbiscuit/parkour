@@ -6,7 +6,7 @@ rustup default 1.84.1
 PATH="$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/darwin-x86_64/bin:$PATH"
 CFLAGS="-D__ANDROID_MIN_SDK_VERSION__=24"
 AR="llvm-ar"
-LIB_NAME="libark.so"
+LIB_NAME="libark_ffi.so"
 COMPILATION_TARGET_ARM64_V8A="aarch64-linux-android"
 # COMPILATION_TARGET_X86_64="x86_64-linux-android"
 # COMPILATION_TARGET_ARMEABI_V7A="armv7-linux-androideabi"
