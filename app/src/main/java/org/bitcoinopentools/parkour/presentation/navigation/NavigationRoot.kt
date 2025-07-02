@@ -12,8 +12,10 @@ import org.bitcoinopentools.parkour.presentation.ui.screens.PlaceHolderScreen
 import org.bitcoinopentools.parkour.presentation.ui.screens.SendScreen
 
 @Composable
-fun NavigationRoot() {
-    val backStack: NavBackStack = rememberNavBackStack(ScreenDestinations.Onboarding)
+fun NavigationRoot(
+    onboardingDone: Boolean
+) {
+    val backStack: NavBackStack = if (onboardingDone) rememberNavBackStack(ScreenDestinations.Home) else rememberNavBackStack(ScreenDestinations.Onboarding)
 
     // TODO: Consider scoping the viewmodels to the NavEntries.
     //       https://developer.android.com/guide/navigation/navigation-3/save-state#scoping-viewmodels

@@ -4,6 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorScheme = darkColorScheme(
     primary = White,
@@ -33,6 +34,8 @@ private val LightColorScheme = lightColorScheme(
     primaryContainer = LightGray,
     onPrimaryContainer = Black
 )
+
+val testPink = Color(0xffff1493)
 
 @Composable
 fun ParkourTheme(

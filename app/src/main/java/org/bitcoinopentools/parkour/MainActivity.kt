@@ -7,18 +7,23 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import org.bitcoinopentools.parkour.domain.Wallet
 import org.bitcoinopentools.parkour.presentation.navigation.NavigationRoot
 import org.bitcoinopentools.parkour.presentation.ui.theme.ParkourTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        val filesDirectoryPath: String = applicationContext.filesDir.absolutePath
+        Wallet.setDbPath(filesDirectoryPath)
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         setContent {
             ParkourTheme {
-                NavigationRoot()
+                NavigationRoot(onboardingDone = false)
             }
         }
     }
