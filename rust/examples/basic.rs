@@ -7,25 +7,20 @@ fn main() {
     println!("Building an ArkWallet example");
 
     let wallet = ArkWallet::new(DB_PATH, RECOVERY_PHRASE);
-    println!("ArkWallet created successfully!");
-
     let balance = wallet.onchain_balance();
-    println!("Onchain balance: {} sats", balance);
-
+    let ark_balance = wallet.offchain_balance();
     let pubkey = wallet.vtxo_pubkey();
+
+    println!("ArkWallet created successfully!");
+    println!("Onchain balance: {} sats", balance);
+    println!("Offchain balance: {} sats", ark_balance);
     println!("Wallet public key: {}", pubkey);
 
-    println!("Calling offchain_balance...");
-    let ark_balance = wallet.offchain_balance();
-    println!("Offchain balance: {} sats", ark_balance);
-
     println!("Attempting to sync...");
-    wallet.sync_ark();
-    // wallet.maintenance();
+    // wallet.sync_ark();
+    wallet.maintenance();
 
     println!("Maintenance completed, checking balance again...");
-    let post_sync_ark_balance = wallet.offchain_balance();
-    println!("After sync offchain balance: {} sats", post_sync_ark_balance);
-
-    println!("Example completed.");
+    let post_maintenance_ark_balance = wallet.offchain_balance();
+    println!("After sync offchain balance: {} sats", post_maintenance_ark_balance);
 }

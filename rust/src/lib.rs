@@ -203,11 +203,11 @@ impl ArkWallet {
     }
 
     pub fn maintenance(&self) {
-        info!("Starting wallet sync");
-        println!("Starting wallet sync");
+        info!("Starting wallet maintenance");
+        println!("Starting wallet maintenance");
 
         let rt = tokio::runtime::Runtime::new().expect("Could not create Tokio runtime");
-        println!("Tokio runtime created for sync");
+        println!("Tokio runtime created for maintenance");
 
         rt.block_on(async {
             match self.get_wallet().maintenance().await {
