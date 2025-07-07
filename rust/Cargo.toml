@@ -16,7 +16,7 @@ default = ["uniffi/cli"]
 
 [dependencies]
 # Ark
-bark-client = { path = "../../bark/bark", features = ["tls-webpki-roots"] }
+bark-client = { path = "../../bark/bark", features = ["tls-webpki-roots"], default-features = false }
 
 # Bitcoin
 bitcoin = "0.32.6"
