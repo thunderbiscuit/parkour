@@ -35,8 +35,6 @@ private val LightColorScheme = lightColorScheme(
     onPrimaryContainer = Black
 )
 
-val testPink = Color(0xffff1493)
-
 @Composable
 fun ParkourTheme(
     darkTheme: Boolean = false,

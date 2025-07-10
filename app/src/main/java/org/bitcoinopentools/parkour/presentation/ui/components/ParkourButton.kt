@@ -18,7 +18,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.tooling.preview.Preview
 import org.bitcoinopentools.parkour.R
+import org.bitcoinopentools.parkour.presentation.ui.theme.ParkourTheme
 
 @Composable
 fun ParkourButton(
@@ -46,6 +48,28 @@ fun ParkourButton(
             fontFamily = FontFamily(Font(R.font.ibmplexmono_medium)),
             // fontFamily = FontFamily(Font(R.font.courierprime_bold))
             // fontFamily = FontFamily(Font(R.font.orbitron_semibold))
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ParkourButtonPreview() {
+    ParkourTheme {
+        ParkourButton(
+            text = "Get Started",
+            onClick = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ParkourButtonLongTextPreview() {
+    ParkourTheme {
+        ParkourButton(
+            text = "Create New Wallet",
+            onClick = { }
         )
     }
 }

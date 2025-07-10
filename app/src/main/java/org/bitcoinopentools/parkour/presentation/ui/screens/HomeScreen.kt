@@ -1,7 +1,6 @@
 package org.bitcoinopentools.parkour.presentation.ui.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -309,5 +308,23 @@ fun BottomButtonRow() {
                 fontFamily = FontFamily(Font(R.font.ibmplexmono_medium)),
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenPreview() {
+    ParkourTheme {
+        HomeScreen(
+            onNavigation = { }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BottomButtonRowPreview() {
+    ParkourTheme {
+        BottomButtonRow()
     }
 }

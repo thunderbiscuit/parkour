@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,6 +26,7 @@ import com.composables.icons.lucide.ThumbsUp
 import kotlinx.coroutines.launch
 import org.bitcoinopentools.parkour.R
 import org.bitcoinopentools.parkour.domain.OnboardingPage
+import org.bitcoinopentools.parkour.presentation.ui.theme.ParkourTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -212,7 +212,21 @@ fun OnboardingPageContent(
 @Preview(showBackground = true)
 @Composable
 fun OnboardingScreenPreview() {
-    MaterialTheme {
+    ParkourTheme {
         OnboardingScreen()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun OnboardingPageContentPreview() {
+    ParkourTheme {
+        OnboardingPageContent(
+            page = OnboardingPage(
+                title = "Welcome!",
+                description = "Discover amazing features that will make your life easier and more productive.",
+                icon = Lucide.Star
+            )
+        )
     }
 }

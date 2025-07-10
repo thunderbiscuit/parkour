@@ -23,14 +23,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ParkourTheme {
-                NavigationRoot(onboardingDone = false)
+                NavigationRoot(onboardingDone = true)
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ParkourTheme {}
 }
