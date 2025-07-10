@@ -7,3 +7,7 @@ val White = Color(0xFFFFFFFF)
 val DarkGray = Color(0xFF1A1A1A)
 val LightGray = Color(0xFFF5F5F5)
 val MediumGray = Color(0xFF666666)
+
+val ParkourGray = Color(0xFFA1A1A1)
+val TestPink = Color(0xffff1493)
+

@@ -33,5 +33,8 @@ sealed class ScreenDestinations : NavKey {
     data object Vtxos : ScreenDestinations()
 
     @Serializable
+    data object Onchain : ScreenDestinations()
+
+    @Serializable
     data object VtxoDetails : ScreenDestinations()
 }

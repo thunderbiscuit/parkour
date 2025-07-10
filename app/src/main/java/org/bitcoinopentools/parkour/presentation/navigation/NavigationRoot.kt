@@ -40,6 +40,7 @@ fun NavigationRoot(
                             ScreenDestinations.About    -> backStack.add(ScreenDestinations.About)
                             ScreenDestinations.Settings -> backStack.add(ScreenDestinations.Settings)
                             ScreenDestinations.Vtxos    -> backStack.add(ScreenDestinations.Vtxos)
+                            ScreenDestinations.Onchain  -> backStack.add(ScreenDestinations.Onchain)
                             else -> Unit
                         }
                     }
@@ -64,6 +65,10 @@ fun NavigationRoot(
 
             entry<ScreenDestinations.Vtxos> {
                 PlaceHolderScreen("Vtxos")
+            }
+
+            entry<ScreenDestinations.Onchain> {
+                PlaceHolderScreen("Onchain")
             }
         }
     )

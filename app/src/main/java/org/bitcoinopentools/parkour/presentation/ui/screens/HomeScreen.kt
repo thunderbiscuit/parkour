@@ -1,13 +1,9 @@
 package org.bitcoinopentools.parkour.presentation.ui.screens
 
-import android.util.Log
-import android.widget.Button
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,10 +15,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CurrencyBitcoin
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,48 +33,42 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.WideNavigationRailColors
-import androidx.compose.material3.ripple
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.tooling.preview.Preview
 import com.composables.icons.lucide.ArrowRightLeft
-import com.composables.icons.lucide.Bitcoin
 import com.composables.icons.lucide.Circle
 import com.composables.icons.lucide.Info
+import com.composables.icons.lucide.Link
 import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Menu
 import com.composables.icons.lucide.Settings
-import org.bitcoinopentools.parkour.domain.Wallet
 import org.bitcoinopentools.parkour.presentation.navigation.ScreenDestinations
 import org.bitcoinopentools.parkour.R
-import org.bitcoinopentools.parkour.presentation.ui.components.ParkourButton
-import org.bitcoinopentools.parkour.presentation.ui.theme.testPink
+import org.bitcoinopentools.parkour.presentation.ui.theme.ParkourGray
+import org.bitcoinopentools.parkour.presentation.ui.theme.ParkourTheme
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     onNavigation: (ScreenDestinations) -> Unit
 ) {
-    val items = listOf("History", "VTXOs", "Settings", "About")
-    val icons = listOf(Lucide.ArrowRightLeft, Lucide.Circle, Lucide.Settings, Lucide.Info)
+    val items = listOf("History", "VTXOs", "Settings", "About", "Onchain")
+    val icons = listOf(Lucide.ArrowRightLeft, Lucide.Circle, Lucide.Settings, Lucide.Info, Lucide.Link)
     val state = rememberWideNavigationRailState()
     val scope = rememberCoroutineScope()
 
@@ -88,11 +76,16 @@ fun HomeScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
-                        text = "Parkour",
-                        fontSize = 22.sp,
-                        fontFamily = FontFamily(Font(R.font.orbitron_semibold))
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(end = 16.dp),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        Text(
+                            text = "Parkour",
+                            fontSize = 22.sp,
+                            fontFamily = FontFamily(Font(R.font.orbitron_semibold))
+                        )
+                    }
                 },
                 navigationIcon = {
                     IconButton(onClick = { scope.launch { state.expand() } }) {
@@ -100,14 +93,14 @@ fun HomeScreen(
                     }
                 },
                 // Completely white top app bar
-                // colors = TopAppBarColors(
-                //     containerColor = Color.White,
-                //     scrolledContainerColor = Color.White,
-                //     navigationIconContentColor = Color.Black,
-                //     titleContentColor =  Color.Black,
-                //     actionIconContentColor = Color.Black,
-                //     subtitleContentColor = Color.Black,
-                // )
+                colors = TopAppBarColors(
+                    containerColor = Color.White,
+                    scrolledContainerColor = Color.White,
+                    navigationIconContentColor = Color.Black,
+                    titleContentColor =  Color.Black,
+                    actionIconContentColor = Color.Black,
+                    subtitleContentColor = Color.Black,
+                )
                 // Top app bar is black with white text and icons
                 // colors = TopAppBarColors(
                 //     containerColor = Color.Black,
@@ -122,6 +115,7 @@ fun HomeScreen(
         content = { paddingValues ->
             Row(Modifier.fillMaxSize()) {
                 ModalWideNavigationRail(
+                    modifier = Modifier.width(280.dp),
                     state = state,
                     hideOnCollapse = true,
                     colors = WideNavigationRailColors(
@@ -132,7 +126,7 @@ fun HomeScreen(
                     )
                 ) {
                     Row(
-                        modifier = Modifier.width(250.dp),
+                        modifier = Modifier.width(280.dp),
                         horizontalArrangement = Arrangement.Center,
                     ) {
                         Image(
@@ -144,7 +138,12 @@ fun HomeScreen(
                         )
                     }
                     Spacer(modifier = Modifier.height(32.dp))
-                    // HorizontalDivider()
+                    Row(
+                        modifier = Modifier.width(280.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        HorizontalDivider(thickness = 1.dp, color = ParkourGray, modifier = Modifier.fillMaxWidth(0.9f))
+                    }
                     items.forEachIndexed { index, item ->
                         WideNavigationRailItem(
                             railExpanded = true,
@@ -169,10 +168,10 @@ fun HomeScreen(
                                     "Vtxos"    -> onNavigation(ScreenDestinations.Vtxos)
                                     "Settings" -> onNavigation(ScreenDestinations.Settings)
                                     "About"    -> onNavigation(ScreenDestinations.About)
+                                    "Onchain"  -> onNavigation(ScreenDestinations.Onchain)
                                 }
                             },
                             modifier = Modifier.offset(x = (-10).dp)
-                            // modifier = Modifier.padding(start = 30.dp).background(testPink)
                         )
                     }
                 }
@@ -186,7 +185,7 @@ fun HomeScreen(
                 ) {
                     var arkBalance by remember { mutableLongStateOf(100L) }
                     Spacer(Modifier.height(70.dp))
-                    HorizontalDivider(thickness = 1.dp, color = Color.Black, modifier = Modifier.fillMaxWidth(0.6f))
+                    HorizontalDivider(thickness = 1.dp, color = ParkourGray, modifier = Modifier.fillMaxWidth(0.6f))
                     Spacer(Modifier.height(24.dp))
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -194,11 +193,12 @@ fun HomeScreen(
                     ) {
                         Icon(
                             imageVector =  Icons.Rounded.CurrencyBitcoin,
-                            tint = Color.Black,
+                            tint = ParkourGray,
                             contentDescription = "Bitcoin",
                             modifier = Modifier
                                 .align(Alignment.CenterVertically)
-                                .size(50.dp)
+                                .padding(end = 16.dp)
+                                .size(42.dp)
                         )
                         Text(
                             text = "$arkBalance",
@@ -207,7 +207,7 @@ fun HomeScreen(
                         )
                     }
                     Spacer(Modifier.height(24.dp))
-                    HorizontalDivider(thickness = 1.dp, color = Color.Black, modifier = Modifier.fillMaxWidth(0.6f))
+                    HorizontalDivider(thickness = 1.dp, color = ParkourGray, modifier = Modifier.fillMaxWidth(0.6f))
                     // Row(
                     //     Modifier
                     //         .fillMaxWidth(0.9f)
@@ -260,7 +260,7 @@ fun HomeScreen(
                     //     },
                     // )
                     Spacer(modifier = Modifier.weight(1f))
-                    HorizontalDivider(thickness = 1.dp, color = Color.Black, modifier = Modifier.fillMaxWidth(0.9f))
+                    HorizontalDivider(thickness = 1.dp, color = ParkourGray, modifier = Modifier.fillMaxWidth(0.9f))
                     BottomButtonRow()
                 }
             }
@@ -286,12 +286,12 @@ fun BottomButtonRow() {
         ) {
             Text(
                 text = "Receive",
-                fontSize = 16.sp,
+                fontSize = 17.sp,
                 color = Color.Black,
                 fontFamily = FontFamily(Font(R.font.ibmplexmono_medium)),
             )
         }
-        VerticalDivider(thickness = 1.dp, color = Color.Black, modifier = Modifier.fillMaxHeight(0.9f))
+        VerticalDivider(thickness = 1.dp, color = ParkourGray, modifier = Modifier.fillMaxHeight(0.9f))
         Button(
             onClick = { },
             modifier = Modifier
@@ -304,7 +304,7 @@ fun BottomButtonRow() {
         ) {
             Text(
                 text = "Send",
-                fontSize = 16.sp,
+                fontSize = 17.sp,
                 color = Color.Black,
                 fontFamily = FontFamily(Font(R.font.ibmplexmono_medium)),
             )
