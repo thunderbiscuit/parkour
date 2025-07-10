@@ -160,6 +160,7 @@ name = "ark_ffi"
 version = "0.1.0"
 dependencies = [
  "android_logger",
+ "anyhow",
  "bark-client",
  "bip39",
  "bitcoin",
