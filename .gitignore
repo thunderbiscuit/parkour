@@ -20,6 +20,7 @@ target/
 libark_ffi.so
 ark.kt
 parkour_db.sqlite3
+just_bark.sqlite3
 
 # Documentation
 NOTES.md
