@@ -11,6 +11,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,6 +25,7 @@ import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.Star
 import com.composables.icons.lucide.ThumbsUp
 import kotlinx.coroutines.launch
+import org.bitcoinopentools.parkour.R
 import org.bitcoinopentools.parkour.domain.OnboardingPage
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -186,8 +189,8 @@ fun OnboardingPageContent(
         // Title
         Text(
             text = page.title,
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
+            fontSize = 26.sp,
+            fontFamily = FontFamily(Font(R.font.ibmplexmono_medium)),
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -197,6 +200,7 @@ fun OnboardingPageContent(
         Text(
             text = page.description,
             fontSize = 16.sp,
+            fontFamily = FontFamily(Font(R.font.ibmplexmono_regular)),
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
             textAlign = TextAlign.Center,
             lineHeight = 24.sp,
