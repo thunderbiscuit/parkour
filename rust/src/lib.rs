@@ -5,7 +5,6 @@ use std::str::FromStr;
 use bip39::Mnemonic;
 use std::sync::{Arc, Mutex, MutexGuard};
 use tokio::runtime::Runtime;
-use anyhow;
 
 uniffi::setup_scaffolding!("ark");
 
@@ -91,8 +90,32 @@ impl ArkWallet {
         self.get_wallet().onchain.balance().to_sat()
     }
 
-    pub fn offchain_balance(&self) -> u64 {
-        self.get_wallet().offchain_balance().unwrap().to_sat()
+    pub fn sync_onchain(&self) -> Result<(), ArkWalletError> {
+        println!("Starting wallet maintenance");
+
+        // Use spawn_blocking to avoid runtime conflicts
+        let result = std::thread::spawn({
+            let runtime = self.runtime.clone();
+            let inner_mutex = self.inner_mutex.clone();
+            move || {
+                runtime.block_on(async {
+                    let mut wallet = inner_mutex.lock().map_err(|e| ArkWalletError::Error(format!("Mutex lock error: {}", e)))?;
+                    wallet.onchain.sync().await
+                })
+            }
+        }).join().map_err(|e| ArkWalletError::Error(format!("Thread join error: {:?}", e)))?;
+
+        result?;
+        println!("Wallet maintenance completed successfully");
+        Ok(())
+    }
+
+    pub fn onchain_address(&self) -> Result<String, ArkWalletError> {
+        Ok(self.get_wallet().onchain.address()?.to_string())
+    }
+
+    pub fn offchain_balance(&self) -> Result<u64, ArkWalletError> {
+        Ok(self.get_wallet().offchain_balance()?.to_sat())
     }
 
     pub fn maintenance(&self) -> Result<(), ArkWalletError> {
@@ -104,7 +127,7 @@ impl ArkWallet {
             let inner_mutex = self.inner_mutex.clone();
             move || {
                 runtime.block_on(async {
-                    let mut wallet = inner_mutex.lock().unwrap();
+                    let mut wallet = inner_mutex.lock().map_err(|e| ArkWalletError::Error(format!("Mutex lock error: {}", e)))?;
                     wallet.maintenance().await
                 })
             }
@@ -115,12 +138,11 @@ impl ArkWallet {
         Ok(())
     }
 
-    pub fn vtxo_pubkey(&self) -> String {
-        self.get_wallet()
-            .derive_store_next_keypair(KeychainKind::External)
-            .unwrap()
+    pub fn vtxo_pubkey(&self) -> Result<String, ArkWalletError> {
+        Ok(self.get_wallet()
+            .derive_store_next_keypair(KeychainKind::External)?
             .public_key()
-            .to_string()
+            .to_string())
     }
 }
 
@@ -148,8 +170,8 @@ impl std::fmt::Display for ArkWalletError {
 
 impl std::error::Error for ArkWalletError {}
 
-impl From<anyhow::Error> for ArkWalletError {
-    fn from(err: anyhow::Error) -> Self {
+impl From<uniffi::deps::anyhow::Error> for ArkWalletError {
+    fn from(err: uniffi::deps::anyhow::Error) -> Self {
         ArkWalletError::Error(err.to_string())
     }
 }
@@ -163,5 +185,11 @@ impl From<bip39::Error> for ArkWalletError {
 impl From<std::io::Error> for ArkWalletError {
     fn from(err: std::io::Error) -> Self {
         ArkWalletError::Error(err.to_string())
+    }
+}
+
+impl From<tokio::task::JoinError> for ArkWalletError {
+    fn from(err: tokio::task::JoinError) -> Self {
+        ArkWalletError::Error(format!("Task join error: {}", err))
     }
 }

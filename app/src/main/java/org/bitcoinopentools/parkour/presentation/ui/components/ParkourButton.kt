@@ -31,7 +31,7 @@ fun ParkourButton(
         onClick = onClick,
         modifier = Modifier
             .padding(12.dp)
-            .fillMaxWidth(0.75f)
+            .fillMaxWidth(0.8f)
             .height(56.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.White,

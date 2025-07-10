@@ -8,8 +8,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let wallet = ArkWallet::new(DB_PATH, RECOVERY_PHRASE)?;
     let balance = wallet.onchain_balance();
-    let ark_balance = wallet.offchain_balance();
-    let pubkey = wallet.vtxo_pubkey();
+    let ark_balance = wallet.offchain_balance().unwrap();
+    let pubkey = wallet.vtxo_pubkey().unwrap();
 
     println!("ArkWallet created successfully!");
     println!("Onchain balance: {} sats", balance);
@@ -20,7 +20,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     wallet.maintenance()?;
 
     println!("Maintenance completed, checking balance again...");
-    let post_maintenance_ark_balance = wallet.offchain_balance();
+    let post_maintenance_ark_balance = wallet.offchain_balance().unwrap();
     println!("After sync offchain balance: {} sats", post_maintenance_ark_balance);
     
     Ok(())

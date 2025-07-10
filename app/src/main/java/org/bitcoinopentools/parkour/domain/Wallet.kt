@@ -50,6 +50,17 @@ object Wallet {
     //     return balance
     // }
 
+    fun onchainAddress(): String {
+        return wallet.onchainAddress()
+    }
+
+    fun syncOnchain(): Unit {
+        scope.launch(Dispatchers.IO) {
+            wallet.syncOnchain()
+            Log.i(TAG, "Onchain wallet synced successfully")
+        }
+    }
+
     fun onchainBalance(): ULong {
         return runBlocking(Dispatchers.IO) {
             val balance = wallet.onchainBalance()

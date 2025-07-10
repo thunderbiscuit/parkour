@@ -8,6 +8,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import org.bitcoinopentools.parkour.presentation.ui.screens.HomeScreen
 import org.bitcoinopentools.parkour.presentation.ui.screens.OnboardingScreen
+import org.bitcoinopentools.parkour.presentation.ui.screens.OnchainScreen
 import org.bitcoinopentools.parkour.presentation.ui.screens.PlaceHolderScreen
 import org.bitcoinopentools.parkour.presentation.ui.screens.SendScreen
 
@@ -68,7 +69,9 @@ fun NavigationRoot(
             }
 
             entry<ScreenDestinations.Onchain> {
-                PlaceHolderScreen("Onchain")
+                OnchainScreen(
+                    onBack = { backStack.removeLastOrNull() }
+                )
             }
         }
     )

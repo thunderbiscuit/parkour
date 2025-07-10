@@ -17,6 +17,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val filesDirectoryPath: String = applicationContext.filesDir.absolutePath
         Wallet.setDbPath(filesDirectoryPath)
+        Wallet.initialize()
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
