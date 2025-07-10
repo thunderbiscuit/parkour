@@ -260,7 +260,7 @@ fun HomeScreen(
                     // )
                     Spacer(modifier = Modifier.weight(1f))
                     HorizontalDivider(thickness = 1.dp, color = ParkourGray, modifier = Modifier.fillMaxWidth(0.9f))
-                    BottomButtonRow()
+                    BottomButtonRow(onNavigation)
                 }
             }
         }
@@ -268,12 +268,14 @@ fun HomeScreen(
 }
 
 @Composable
-fun BottomButtonRow() {
+fun BottomButtonRow(
+    onNavigation: (ScreenDestinations) -> Unit
+) {
     Row(
         modifier = Modifier.fillMaxWidth().height(100.dp)
     ) {
         Button(
-            onClick = { },
+            onClick = { onNavigation(ScreenDestinations.Receive) },
             modifier = Modifier
                 .weight(1f)
                 .height(100.dp),
@@ -325,6 +327,8 @@ fun HomeScreenPreview() {
 @Composable
 fun BottomButtonRowPreview() {
     ParkourTheme {
-        BottomButtonRow()
+        BottomButtonRow(
+            onNavigation = { }
+        )
     }
 }

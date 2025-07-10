@@ -10,6 +10,7 @@ import org.bitcoinopentools.parkour.presentation.ui.screens.HomeScreen
 import org.bitcoinopentools.parkour.presentation.ui.screens.OnboardingScreen
 import org.bitcoinopentools.parkour.presentation.ui.screens.OnchainScreen
 import org.bitcoinopentools.parkour.presentation.ui.screens.PlaceHolderScreen
+import org.bitcoinopentools.parkour.presentation.ui.screens.ReceiveScreen
 import org.bitcoinopentools.parkour.presentation.ui.screens.SendScreen
 
 @Composable
@@ -42,6 +43,7 @@ fun NavigationRoot(
                             ScreenDestinations.Settings -> backStack.add(ScreenDestinations.Settings)
                             ScreenDestinations.Vtxos    -> backStack.add(ScreenDestinations.Vtxos)
                             ScreenDestinations.Onchain  -> backStack.add(ScreenDestinations.Onchain)
+                            ScreenDestinations.Receive  -> backStack.add(ScreenDestinations.Receive)
                             else -> Unit
                         }
                     }
@@ -49,7 +51,9 @@ fun NavigationRoot(
             }
 
             entry<ScreenDestinations.Receive> {
-                SendScreen()
+                ReceiveScreen(
+                    onBack = { backStack.removeLastOrNull() }
+                )
             }
 
             entry<ScreenDestinations.History> {
